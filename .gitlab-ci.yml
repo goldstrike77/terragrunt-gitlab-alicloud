@@ -43,9 +43,6 @@ plan:
   stage: plan
   script:
     - terragrunt run-all plan --terragrunt-parallelism 1
-  rules:
-    - if: $CI_COMMIT_TITLE == "deploy" or $CI_COMMIT_TITLE == "destroy"
-      when: on_success
 
 deploy:
   stage: deploy
