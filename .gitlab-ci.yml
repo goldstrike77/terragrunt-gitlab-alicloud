@@ -37,17 +37,17 @@ build:
       - .terraform/
     policy: pull-push
   script:
-    - terragrunt run-all init -auto-approve --terragrunt-parallelism 1
+    - terragrunt run-all init --terragrunt-parallelism 1
 
 plan:
   stage: plan
   script:
-    - terragrunt run-all plan --terragrunt-parallelism 1
+    - terragrunt run-all plan --terragrunt-parallelism 1 -auto-approve
 
 deploy:
   stage: deploy
   script:
-    - terragrunt run-all apply -auto-approve --terragrunt-parallelism 1
+    - terragrunt run-all apply --terragrunt-parallelism 1 -auto-approve
   rules:
     - if: $CI_COMMIT_TITLE == "deploy"
       when: manual
@@ -55,7 +55,7 @@ deploy:
 cleanup:
   stage: cleanup
   script:
-    - terragrunt run-all destory -auto-approve --terragrunt-parallelism 1
+    - terragrunt run-all destory --terragrunt-parallelism 1 -auto-approve
   rules:
     - if: $CI_COMMIT_TITLE == "destroy"
       when: manual
