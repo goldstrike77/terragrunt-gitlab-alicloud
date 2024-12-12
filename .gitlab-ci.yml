@@ -40,7 +40,6 @@ before_script:
 fmt:
   extends: .terraform:fmt
   script: 
-    - !reference [.source, script]
     - terragrunt hclfmt -check -diff
     - terragrunt run-all fmt -check -diff -recursive
 
@@ -52,19 +51,16 @@ init:
       - .terraform/
     policy: pull-push
   script:
-    - !reference [.source, script]
     - terragrunt run-all init -input=false -reconfigure --terragrunt-parallelism 1 -lockfile=readonly
 
 validate:
   extends: .terraform:validate
   script: 
-    - !reference [.source, script]
     - terragrunt run-all validate
 
 build:
   extends: .terraform:build
   script: 
-    - !reference [.source, script]
     - terragrunt run-all plan -input=false -out=plan.cache
     - terragrunt run-all show -json plan.cache | jq -r "${JQ_PLAN}" | jq -s 'map(to_entries) | flatten | group_by(.key) | map({(.[0].key):map(.value) | add}) | add' > "${TF_ROOT}/plan.json"
   artifacts:
@@ -77,7 +73,6 @@ deploy:
   extends: .terraform:deploy
   dependencies: [build]
   script:
-    - !reference [.source, script]
     - terragrunt run-all apply --terragrunt-non-interactive -input=false plan.cache
   rules:
     - if: $CI_COMMIT_TITLE == "deploy"
@@ -86,7 +81,6 @@ deploy:
 destroy:
   extends: .terraform:destroy
   script:
-    - !reference [.source, script]
     - terragrunt run-all destroy --terragrunt-non-interactive -input=false
   rules:
     - if: $CI_COMMIT_TITLE == "destroy"
