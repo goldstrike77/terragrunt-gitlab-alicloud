@@ -1,12 +1,20 @@
+include:
+  - template: Terraform/Base.latest.gitlab-ci.yml
+  - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
+
 stages:
+  - init
+  - validate
+  - test
   - build
-  - plan
   - deploy
   - cleanup
 
 variables:
   TF_DATA_DIR: "$HOME/.terraform"
   IGNORE_TF_DEPRECATION_WARNING: "true"
+  SECURE_ANALYZERS_PREFIX: "ccr.ccs.tencentyun.com/gitlab-org"
+  TF_STATE_BASE_ADDRESS: $CI_API_V4_URL/projects/$CI_PROJECT_ID/terraform/state
 
 image:
   name: "registry.cn-hangzhou.aliyuncs.com/goldenimage/terragrunt:1.10.1-v0.69.9"
@@ -14,7 +22,7 @@ image:
 cache:
   key: $CI_COMMIT_REF_SLUG
   paths:
-    - .terraform/
+    - ${TF_ROOT}/**/.terraform
   policy: pull
 
 before_script:
@@ -29,33 +37,57 @@ before_script:
     }
     EOF
 
-build:
-  stage: build
+fmt:
+  extends: .terraform:fmt
+  script: 
+    - !reference [.source, script]
+    - terragrunt hclfmt -check -diff
+    - terragrunt run-all fmt -check -diff -recursive
+
+init:
+  stage: init
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
       - .terraform/
     policy: pull-push
   script:
-    - terragrunt run-all init --terragrunt-parallelism 1
+    - !reference [.source, script]
+    - terragrunt run-all init -input=false -reconfigure --terragrunt-parallelism 1 -lockfile=readonly
 
-plan:
-  stage: plan
-  script:
-    - terragrunt run-all plan --terragrunt-parallelism 1 -auto-approve
+validate:
+  extends: .terraform:validate
+  script: 
+    - !reference [.source, script]
+    - terragrunt run-all validate
+
+build:
+  extends: .terraform:build
+  script: 
+    - !reference [.source, script]
+    - terragrunt run-all plan -input=false -out=plan.cache
+    - terragrunt run-all show -json plan.cache | jq -r "${JQ_PLAN}" | jq -s 'map(to_entries) | flatten | group_by(.key) | map({(.[0].key):map(.value) | add}) | add' > "${TF_ROOT}/plan.json"
+  artifacts:
+    paths:
+      - ${TF_ROOT}/**/plan.cache
+    reports:
+      terraform: ${TF_ROOT}/plan.json
 
 deploy:
-  stage: deploy
+  extends: .terraform:deploy
+  dependencies: [build]
   script:
-    - terragrunt run-all apply --terragrunt-parallelism 1 -auto-approve
+    - !reference [.source, script]
+    - terragrunt run-all apply --terragrunt-non-interactive -input=false plan.cache
   rules:
     - if: $CI_COMMIT_TITLE == "deploy"
       when: manual
 
-cleanup:
-  stage: cleanup
+destroy:
+  extends: .terraform:destroy
   script:
-    - terragrunt run-all destory --terragrunt-parallelism 1 -auto-approve
+    - !reference [.source, script]
+    - terragrunt run-all destroy --terragrunt-non-interactive -input=false
   rules:
     - if: $CI_COMMIT_TITLE == "destroy"
       when: manual
