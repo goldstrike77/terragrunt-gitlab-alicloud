@@ -17,7 +17,7 @@ variables:
 
 default:
   image:
-    name: "registry.cn-hangzhou.aliyuncs.com/goldenimage/terragrunt:1.10.1-v0.69.9"
+    name: "registry.cn-hangzhou.aliyuncs.com/goldenimage/terragrunt:1.4.7-v0.69.9"
   
   cache:
     key: $CI_COMMIT_REF_SLUG
