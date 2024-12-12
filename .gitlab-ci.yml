@@ -50,7 +50,7 @@ init:
     policy: pull-push
   script:
     - !reference [.source, script]
-    - terragrunt run-all init -input=false -reconfigure -lockfile=readonly
+    - terragrunt run-all init -input=false -reconfigure
 
 fmt:
   extends: .terraform:fmt
