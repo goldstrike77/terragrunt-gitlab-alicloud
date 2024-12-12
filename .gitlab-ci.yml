@@ -85,7 +85,9 @@ deploy:
     - terragrunt run-all apply --terragrunt-non-interactive -input=false plan.cache
   rules:
     - if: $CI_COMMIT_TITLE == "deploy"
-      when: manual
+      when: on_success
+  environment:
+    name: $TF_STATE_NAME
 
 destroy:
   extends: .terraform:destroy
@@ -95,3 +97,5 @@ destroy:
   rules:
     - if: $CI_COMMIT_TITLE == "destroy"
       when: manual
+  environment:
+    name: $TF_STATE_NAME

@@ -1,12 +1,12 @@
 variable "tags" {
   default = {
-    location    = "eastasia"
+    location    = "cn-shanghai"
     environment = "prd"
-    customer    = "Learn"
+    customer    = "Demo"
     owner       = "Somebody"
     email       = "somebody@mail.com"
     title       = "Engineer"
-    department  = "IS"
+    department  = "Infra"
   }
 }
 
