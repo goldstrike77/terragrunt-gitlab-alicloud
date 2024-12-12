@@ -10,9 +10,38 @@ variable "tags" {
   }
 }
 
-variable "resource_directory" {
-  default = {
-    status                 = "Enabled"
-    member_deletion_status = "Enabled"
-  }
+variable "alicloud_resources" {
+  default = [
+    {
+      manager_folder = [
+        {
+          folder = [
+            {
+              name = "Marketing"
+              folder = [
+                { name = "prd" },
+                { name = "sit" },
+                { name = "dev" }
+              ]
+            },
+            {
+              name = "Infra"
+              folder = [
+                { name = "prd" },
+                { name = "dev" }
+              ]
+            },
+            {
+              name = "Finance"
+              folder = [
+                { name = "prd" },
+                { name = "sit" },
+                { name = "dev" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
