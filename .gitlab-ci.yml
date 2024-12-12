@@ -17,7 +17,7 @@ variables:
 
 default:
   image:
-    name: "registry.cn-hangzhou.aliyuncs.com/goldenimage/terragrunt:latest-v0.69.9"
+    name: "registry.gitlab.com/timofurrer/terraform-template-terragrunt:latest"
   
   cache:
     key: $CI_COMMIT_REF_SLUG
