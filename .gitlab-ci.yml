@@ -51,7 +51,7 @@ init:
       - .terraform/
     policy: pull-push
   script:
-    - terragrunt run-all init -input=false -reconfigure --terragrunt-parallelism 1 -lockfile=readonly
+    - terragrunt run-all init -input=false -reconfigure -lockfile=readonly
 
 validate:
   extends: .terraform:validate
