@@ -3,6 +3,7 @@ include:
   - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
 
 stages:
+  - lint
   - init
   - validate
   - test
@@ -39,6 +40,7 @@ before_script:
 
 fmt:
   extends: .terraform:fmt
+  stage: lint
   script: 
     - terragrunt hclfmt -check -diff
     - terragrunt run-all fmt -check -diff -recursive
