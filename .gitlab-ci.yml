@@ -14,6 +14,7 @@ variables:
   IGNORE_TF_DEPRECATION_WARNING: "true"
   SECURE_ANALYZERS_PREFIX: "ccr.ccs.tencentyun.com/gitlab-org"
   TF_STATE_BASE_ADDRESS: $CI_API_V4_URL/projects/$CI_PROJECT_ID/terraform/state
+  TF_CLI_ARGS_apply: "-parallelism=1"
 
 default:
   image:
