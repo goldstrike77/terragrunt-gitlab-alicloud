@@ -92,11 +92,12 @@ deploy:
 
 destroy:
   extends: .terraform:destroy
+  dependencies: [build]
   script:
     - !reference [.source, script]
     - terragrunt run-all destroy --terragrunt-non-interactive -input=false
   rules:
     - if: $CI_COMMIT_TITLE == "destroy"
-      when: manual
+      when: on_success
   environment:
     name: $TF_STATE_NAME

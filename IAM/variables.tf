@@ -17,14 +17,6 @@ variable "alicloud_resources" {
         {
           folder = [
             {
-              name = "Marketing"
-              folder = [
-                { name = "prd" },
-                { name = "sit" },
-                { name = "dev" }
-              ]
-            },
-            {
               name = "Infra"
               folder = [
                 { name = "prd" },
