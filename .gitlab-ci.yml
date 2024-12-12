@@ -17,7 +17,7 @@ variables:
 
 default:
   image:
-    name: "registry.gitlab.com/gitlab-org/terraform-images/stable:latest"
+    name: "registry.gitlab.com/gitlab-org/terraform-images/stable:1.5.7"
   
   cache:
     key: $CI_COMMIT_REF_SLUG
