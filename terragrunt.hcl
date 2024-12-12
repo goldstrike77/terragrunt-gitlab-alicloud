@@ -9,6 +9,8 @@ terraform {
       version = "1.237.0"
     }
   }
+  backend "http" {
+  }
 }
 
 provider "alicloud" {
