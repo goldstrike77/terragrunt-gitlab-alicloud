@@ -51,6 +51,7 @@ init:
       - .terraform/
     policy: pull-push
   script:
+    - sleep 600
     - terragrunt run-all init -input=false -reconfigure -lockfile=readonly
 
 validate:
