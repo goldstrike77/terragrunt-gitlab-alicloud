@@ -11,19 +11,19 @@ stages:
   - cleanup
 
 variables:
-  TF_DATA_DIR: "$HOME/.terraform"
   IGNORE_TF_DEPRECATION_WARNING: "true"
   SECURE_ANALYZERS_PREFIX: "ccr.ccs.tencentyun.com/gitlab-org"
   TF_STATE_BASE_ADDRESS: $CI_API_V4_URL/projects/$CI_PROJECT_ID/terraform/state
 
-image:
-  name: "registry.cn-hangzhou.aliyuncs.com/goldenimage/terragrunt:1.10.1-v0.69.9"
-
-cache:
-  key: $CI_COMMIT_REF_SLUG
-  paths:
-    - ${TF_ROOT}/**/.terraform
-  policy: pull
+default:
+  image:
+    name: "registry.cn-hangzhou.aliyuncs.com/goldenimage/terragrunt:1.10.1-v0.69.9"
+  
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - ${TF_ROOT}/**/.terraform
+    policy: pull
 
 before_script:
   - cp /etc/gitlab-runner/certs/gitlab.home.local.crt /usr/local/share/ca-certificates/ca.crt
