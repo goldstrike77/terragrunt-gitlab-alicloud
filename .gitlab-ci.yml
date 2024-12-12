@@ -3,7 +3,6 @@ include:
   - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
 
 stages:
-  - lint
   - init
   - validate
   - test
@@ -18,13 +17,17 @@ variables:
 
 default:
   image:
-    name: "registry.gitlab.com/timofurrer/terraform-template-terragrunt:latest"
+    name: "registry.cn-hangzhou.aliyuncs.com/goldenimage/terragrunt:latest-v0.69.9"
   
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
       - ${TF_ROOT}/**/.terraform
     policy: pull
+
+.source:
+  script:
+    - source $(which gitlab-terraform)
 
 before_script:
   - cp /etc/gitlab-runner/certs/gitlab.home.local.crt /usr/local/share/ca-certificates/ca.crt
@@ -38,13 +41,6 @@ before_script:
     }
     EOF
 
-fmt:
-  extends: .terraform:fmt
-  stage: lint
-  script: 
-    - terragrunt hclfmt -check -diff
-    - terragrunt run-all fmt -check -diff -recursive
-
 init:
   stage: init
   cache:
@@ -53,16 +49,26 @@ init:
       - .terraform/
     policy: pull-push
   script:
+    - !reference [.source, script]
     - terragrunt run-all init -input=false -reconfigure -lockfile=readonly
+
+fmt:
+  extends: .terraform:fmt
+  script:
+    - !reference [.source, script]
+    - terragrunt hclfmt -check -diff
+    - terragrunt run-all fmt -check -diff -recursive
 
 validate:
   extends: .terraform:validate
-  script: 
+  script:
+    - !reference [.source, script]
     - terragrunt run-all validate
 
 build:
   extends: .terraform:build
-  script: 
+  script:
+    - !reference [.source, script]
     - terragrunt run-all plan -input=false -out=plan.cache
     - terragrunt run-all show -json plan.cache | jq -r "${JQ_PLAN}" | jq -s 'map(to_entries) | flatten | group_by(.key) | map({(.[0].key):map(.value) | add}) | add' > "${TF_ROOT}/plan.json"
   artifacts:
@@ -75,6 +81,7 @@ deploy:
   extends: .terraform:deploy
   dependencies: [build]
   script:
+    - !reference [.source, script]
     - terragrunt run-all apply --terragrunt-non-interactive -input=false plan.cache
   rules:
     - if: $CI_COMMIT_TITLE == "deploy"
@@ -83,6 +90,7 @@ deploy:
 destroy:
   extends: .terraform:destroy
   script:
+    - !reference [.source, script]
     - terragrunt run-all destroy --terragrunt-non-interactive -input=false
   rules:
     - if: $CI_COMMIT_TITLE == "destroy"
