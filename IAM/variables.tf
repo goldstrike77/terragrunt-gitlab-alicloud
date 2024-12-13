@@ -25,16 +25,16 @@ variable "alicloud_resources" {
             {
               name = "Infra"
               folder = [
-                { name = "prd" },
-                { name = "dev" }
+                { name = "Cloud", account = [{ display_name = "cloud" }] },
+                { name = "Security", account = [{ display_name = "security" }] },
+                { name = "Network", account = [{ display_name = "network" }] }
               ]
             },
             {
-              name = "Finance"
+              name = "Business"
               folder = [
-                { name = "prd" },
-                { name = "sit" },
-                { name = "dev" }
+                { name = "CustomerService", account = [{ display_name = "cs" }] },
+                { name = "Sales", account = [{ display_name = "sales" }] }
               ]
             }
           ]
