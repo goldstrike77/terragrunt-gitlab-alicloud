@@ -1,5 +1,5 @@
 # 管控策略
-module "alicloud_resource_manager_account" {
+module "alicloud_resource_manager_control_policy" {
   source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//resource-manager/control-policy?ref=1.x"
   alicloud_resources = var.alicloud_resources
 }
