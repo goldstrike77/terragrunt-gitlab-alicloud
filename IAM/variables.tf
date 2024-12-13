@@ -39,6 +39,70 @@ variable "alicloud_resources" {
             }
           ]
         }
+      ],
+      control_policy = [
+        {
+          control_policy_name = "cp-network"
+          policy_document = {
+            "Version" : "1",
+            "Statement" : [{
+              "Effect" : "Allow",
+              "Action" : "vpc:*",
+              "Resource" : "*"
+              }, {
+              "Effect" : "Allow",
+              "Action" : "vpc:*",
+              "Resource" : "*"
+              }, {
+              "Effect" : "Allow",
+              "Action" : "vpc:*",
+              "Resource" : "*"
+              }, {
+              "Effect" : "Allow",
+              "Action" : "alb:*",
+              "Resource" : "*"
+              }, {
+              "Effect" : "Allow",
+              "Action" : "slb:*",
+              "Resource" : "*"
+              }, {
+              "Effect" : "Allow",
+              "Action" : "nlb:*",
+              "Resource" : "*"
+              }
+            ]
+          }
+        },
+        {
+          control_policy_name = "cp-security"
+          policy_document = {
+            "Version" : "1",
+            "Statement" : [{
+              "Effect" : "Allow",
+              "Action" : "yundun-bastionhost:*",
+              "Resource" : "*"
+              }, {
+              "Effect" : "Allow",
+              "Action" : [
+                "yundun-sas:*",
+                "yundun-aegis:*"
+              ],
+              "Resource" : "*"
+              }, {
+              "Effect" : "Allow",
+              "Action" : [
+                "yundun-cloudfirewall:*",
+                "yundun-ndr:*"
+              ],
+              "Resource" : "*"
+              }, {
+              "Effect" : "Allow",
+              "Action" : "yundun-waf:*",
+              "Resource" : "*"
+              }
+            ]
+          }
+        }
       ]
     }
   ]
