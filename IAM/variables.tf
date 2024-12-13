@@ -13,6 +13,12 @@ variable "tags" {
 variable "alicloud_resources" {
   default = [
     {
+      resource_directory = [
+        {
+          status                 = "Enabled"
+          member_deletion_status = "Enabled"
+        }
+      ]
       manager_folder = [
         {
           folder = [
