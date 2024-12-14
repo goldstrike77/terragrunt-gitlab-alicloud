@@ -104,6 +104,6 @@ variable "alicloud_resources" {
           }
         }
       ]
-    }
+    },
   ]
 }
