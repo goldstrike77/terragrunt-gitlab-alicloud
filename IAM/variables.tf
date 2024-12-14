@@ -26,8 +26,8 @@ variable "alicloud_resources" {
               name = "Infra"
               folder = [
                 { name = "Cloud", account = [{ display_name = "cloud" }] },
-                { name = "Security", account = [{ display_name = "security" }] },
-                { name = "Network", account = [{ display_name = "network" }] }
+                { name = "Security", account = [{ display_name = "security" }], policy = ["cp-network"] },
+                { name = "Network", account = [{ display_name = "network" }], policy = ["cp-security"] }
               ]
             },
             {
