@@ -106,28 +106,30 @@ variable "alicloud_resources" {
       ],
       ram_user = [
         {
-          name = "jackiechen"
+          name = "jackiechen",
+          role_name = ["BillingAdmin", "CloudAdmin"]
         },
         {
           name = "tomzhu"
+          role_name = ["MiddlewareAdmin", "MonitorAdmin"]
         }
       ]
       ram_role = [
         {
-          name = "BillingAdmin",
+          role_name = "BillingAdmin",
           policies = [
             "AliyunBSSFullAccess",
             "AliyunFinanceConsoleFullAccess"
           ]
         },
         {
-          name = "CloudAdmin"
+          role_name = "CloudAdmin"
           policies = [
             "AdministratorAccess"
           ]
         },
         {
-          name = "NetworkAdmin"
+          role_name = "NetworkAdmin"
           policies = [
             "AliyunVPCFullAccess",
             "AliyunNATGatewayFullAccess",
@@ -144,7 +146,7 @@ variable "alicloud_resources" {
           ]
         },
         {
-          name = "DBAdmin"
+          role_name = "DBAdmin"
           policies = [
             "AliyunRDSFullAccess",
             "AliyunDRDSFullAccess",
@@ -168,7 +170,7 @@ variable "alicloud_resources" {
           ]
         },
         {
-          name = "SLBAdmin"
+          role_name = "SLBAdmin"
           policies = [
             "AliyunSLBFullAccess",
             "AliyunEIPFullAccess",
@@ -176,18 +178,18 @@ variable "alicloud_resources" {
           ]
         },
         {
-          name = "CDNAdmin"
+          role_name = "CDNAdmin"
           policies = [
             "AliyunCDNFullAccess"
           ]
         },
         {
-          name = "MonitorAdmin"
+          role_name = "MonitorAdmin"
           policies = [
             "AliyunCloudMonitorFullAccess"
           ]
         },
-        { name = "MiddlewareAdmin"
+        { role_name = "MiddlewareAdmin"
           policies = [
             "AliyunKvstoreFullAccess",
             "AliyunMQFullAccess",
@@ -195,6 +197,7 @@ variable "alicloud_resources" {
           ]
         }
       ]
-    }
+    },
+    {}
   ]
 }
