@@ -12,7 +12,7 @@ module "alicloud_ram_user" {
 
 # 创建角色
 module "alicloud_ram_role" {
-  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/user?ref=1.x"
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/role?ref=1.x"
   alicloud_resources = var.alicloud_resources
 }
 
