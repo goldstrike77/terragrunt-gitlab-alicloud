@@ -103,7 +103,90 @@ variable "alicloud_resources" {
             ]
           }
         }
+      ],
+      ram_role = [
+        {
+          name = "BillingAdmin",
+          policies = [
+            "AliyunBSSFullAccess",
+            "AliyunFinanceConsoleFullAccess"
+          ]
+        },
+        {
+          name = "CloudAdmin"
+          policies = [
+            "AdministratorAccess"
+          ]
+        },
+        {
+          name = "NetworkAdmin"
+          policies = [
+            "AliyunVPCFullAccess",
+            "AliyunNATGatewayFullAccess",
+            "AliyunEIPFullAccess",
+            "AliyunCENFullAccess",
+            "AliyunVPNGatewayFullAccess",
+            "AliyunExpressConnectFullAccess",
+            "AliyunCommonBandwidthPackageFullAccess",
+            "AliyunSmartAccessGatewayFullAccess",
+            "AliyunGlobalAccelerationFullAccess",
+            "AliyunECSNetworkInterfaceManagementAccess",
+            "AliyunDNSFullAccess",
+            "AliyunYundunNewBGPAntiDDoSServicePROFullAccess"
+          ]
+        },
+        {
+          name = "DBAdmin"
+          policies = [
+            "AliyunRDSFullAccess",
+            "AliyunDRDSFullAccess",
+            "AliyunOCSFullAccess",
+            "AliyunPolardbFullAccess",
+            "AliyunADBFullAccess",
+            "AliyunDTSFullAccess",
+            "AliyunMongoDBFullAccess",
+            "AliyunPetaDataFullAccess",
+            "AliyunGPDBFullAccess",
+            "AliyunHBaseFullAccess",
+            "AliyunYundunDbAuditFullAccess",
+            "AliyunHiTSDBFullAccess",
+            "AliyunDBSFullAccess",
+            "AliyunHDMFullAccess",
+            "AliyunGDBFullAccess",
+            "AliyunOceanBaseFullAccess",
+            "AliyunCassandraFullAccess",
+            "AliyunClickHouseFullAccess",
+            "AliyunDLAFullAccess"
+          ]
+        },
+        {
+          name = "SLBAdmin"
+          policies = [
+            "AliyunSLBFullAccess",
+            "AliyunEIPFullAccess",
+            "AliyunECSNetworkInterfaceManagementAccess"
+          ]
+        },
+        {
+          name = "CDNAdmin"
+          policies = [
+            "AliyunCDNFullAccess"
+          ]
+        },
+        {
+          name = "MonitorAdmin"
+          policies = [
+            "AliyunCloudMonitorFullAccess"
+          ]
+        },
+        { name = "MiddlewareAdmin"
+          policies = [
+            "AliyunKvstoreFullAccess",
+            "AliyunMQFullAccess",
+            "AliyunElasticsearchFullAccess"
+          ]
+        }
       ]
-    },
+    }
   ]
 }
