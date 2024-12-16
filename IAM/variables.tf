@@ -104,6 +104,14 @@ variable "alicloud_resources" {
           }
         }
       ],
+      ram_user = [
+        {
+          name = "jackiechen"
+        },
+        {
+          name = "tomzhu"
+        }
+      ]
       ram_role = [
         {
           name = "BillingAdmin",

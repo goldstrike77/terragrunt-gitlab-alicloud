@@ -4,9 +4,9 @@ module "alicloud_resource_manager_control_policy" {
   alicloud_resources = var.alicloud_resources
 }
 
-# 企业管理账号角色
+# 创建用户
 module "alicloud_ram_role" {
-  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/role?ref=1.x"
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/user?ref=1.x"
   alicloud_resources = var.alicloud_resources
 }
 
