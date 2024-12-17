@@ -18,7 +18,7 @@ variable "alicloud_resources" {
           status                 = "Enabled"
           member_deletion_status = "Enabled"
         }
-      ]
+      ],
       manager_folder = [
         {
           folder = [
@@ -106,14 +106,14 @@ variable "alicloud_resources" {
       ],
       ram_user = [
         {
-          name = "jackiechen",
+          name      = "jackiechen",
           role_name = ["BillingAdmin", "CloudAdmin"]
         },
         {
-          name = "tomzhu"
+          name      = "tomzhu"
           role_name = ["MiddlewareAdmin", "MonitorAdmin"]
         }
-      ]
+      ],
       ram_role = [
         {
           role_name = "BillingAdmin",
@@ -189,7 +189,8 @@ variable "alicloud_resources" {
             "AliyunCloudMonitorFullAccess"
           ]
         },
-        { role_name = "MiddlewareAdmin"
+        {
+          role_name = "MiddlewareAdmin"
           policies = [
             "AliyunKvstoreFullAccess",
             "AliyunMQFullAccess",
@@ -197,7 +198,6 @@ variable "alicloud_resources" {
           ]
         }
       ]
-    },
-    {}
+    }
   ]
 }
