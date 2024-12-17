@@ -31,6 +31,9 @@ default:
     - source $(which gitlab-terraform)
 
 before_script:
+  - sleep 600
+  - cp /etc/gitlab-runner/certs/gitlab.home.local.crt /usr/local/share/ca-certificates/ca.crt
+  - update-ca-certificates
   - |-
     cat <<EOF > ~/.terraformrc
     provider_installation {
