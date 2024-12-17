@@ -106,30 +106,28 @@ variable "alicloud_resources" {
       ],
       ram_user = [
         {
-          name      = "jackiechen",
-          role_name = ["BillingAdmin", "CloudAdmin"]
+          name = "jackiechen"
         },
         {
-          name      = "tomzhu"
-          role_name = ["MiddlewareAdmin", "MonitorAdmin"]
+          name = "tomzhu"
         }
       ],
       ram_role = [
         {
-          role_name = "BillingAdmin",
+          name = "BillingAdmin",
           policies = [
             "AliyunBSSFullAccess",
             "AliyunFinanceConsoleFullAccess"
           ]
         },
         {
-          role_name = "CloudAdmin"
+          name = "CloudAdmin"
           policies = [
             "AdministratorAccess"
           ]
         },
         {
-          role_name = "NetworkAdmin"
+          name = "NetworkAdmin"
           policies = [
             "AliyunVPCFullAccess",
             "AliyunNATGatewayFullAccess",
@@ -146,7 +144,7 @@ variable "alicloud_resources" {
           ]
         },
         {
-          role_name = "DBAdmin"
+          name = "DBAdmin"
           policies = [
             "AliyunRDSFullAccess",
             "AliyunDRDSFullAccess",
@@ -170,7 +168,7 @@ variable "alicloud_resources" {
           ]
         },
         {
-          role_name = "SLBAdmin"
+          name = "SLBAdmin"
           policies = [
             "AliyunSLBFullAccess",
             "AliyunEIPFullAccess",
@@ -178,19 +176,19 @@ variable "alicloud_resources" {
           ]
         },
         {
-          role_name = "CDNAdmin"
+          name = "CDNAdmin"
           policies = [
             "AliyunCDNFullAccess"
           ]
         },
         {
-          role_name = "MonitorAdmin"
+          name = "MonitorAdmin"
           policies = [
             "AliyunCloudMonitorFullAccess"
           ]
         },
         {
-          role_name = "MiddlewareAdmin"
+          name = "MiddlewareAdmin"
           policies = [
             "AliyunKvstoreFullAccess",
             "AliyunMQFullAccess",
