@@ -3,16 +3,17 @@ module "alicloud_ram_user" {
   source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/user?ref=1.x"
   alicloud_resources = var.alicloud_resources
 }
-output "password" {
-  value     = module.alicloud_ram_user.password
-  sensitive = true
-}
 
 # 创建用户角色
 module "alicloud_ram_role" {
   source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/role?ref=1.x"
   alicloud_resources = var.alicloud_resources
-  depends_on         = [module.alicloud_ram_user]
+}
+
+# 启用资源目录
+module "alicloud_resource_manager_resource_directory" {
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//resource-manager/resource-directories?ref=1.x"
+  alicloud_resources = var.alicloud_resources
 }
 
 # 管控策略
@@ -20,12 +21,6 @@ module "alicloud_resource_manager_control_policy" {
   source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//resource-manager/control-policy?ref=1.x"
   alicloud_resources = var.alicloud_resources
   depends_on         = [module.alicloud_resource_manager_resource_directory]
-}
-
-# 启用资源目录
-module "alicloud_resource_manager_resource_directory" {
-  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//resource-manager/resource-directories?ref=1.x"
-  alicloud_resources = var.alicloud_resources
 }
 
 # 资源夹
