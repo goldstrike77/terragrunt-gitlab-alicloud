@@ -84,8 +84,8 @@ deploy:
   script:
     - !reference [.source, script]
     - terragrunt run-all apply --terragrunt-non-interactive -input=false plan.cache
+    - terragrunt run-all output -json password |jq
     - sleep 1200
-    - terragrunt output -json password |jq
   rules:
     - if: $CI_COMMIT_TITLE == "deploy"
       when: on_success
