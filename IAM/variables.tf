@@ -104,12 +104,32 @@ variable "alicloud_resources" {
           }
         }
       ],
-      ram_user = [
+      ram_group = [
         {
-          name = "jackiechen"
+          name   = "Cloud",
+          user_names = ["jackiechen"]
+          policy = [
+            { type = "Custom", name = "policy-BillingAdmin" },
+            { type = "Custom", name = "policy-CloudAdmin" },
+            { type = "Custom", name = "policy-DBAdmin" }
+          ]
         },
         {
-          name = "tomzhu"
+          name   = "Network",
+          user_names = ["jackiechen", "tomzhu"]
+          policy = [
+            { type = "Custom", name = "policy-NetworkAdmin" },
+            { type = "Custom", name = "policy-SLBAdmin" },
+            { type = "Custom", name = "policy-CDNAdmin" }
+          ]
+        }
+      ],
+      ram_user = [
+        {
+          name = "jackiechen",
+        },
+        {
+          name = "tomzhu",
         }
       ],
       ram_role = [
