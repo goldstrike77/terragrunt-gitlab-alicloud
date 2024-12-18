@@ -84,8 +84,7 @@ deploy:
   script:
     - !reference [.source, script]
     - terragrunt run-all apply --terragrunt-non-interactive -input=false plan.cache
-    - terragrunt run-all output -json password |jq
-    - sleep 1200
+    - terragrunt run-all output -json alicloud_ram_user_password | jq
   rules:
     - if: $CI_COMMIT_TITLE == "deploy"
       when: on_success
