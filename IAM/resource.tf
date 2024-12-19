@@ -1,14 +1,12 @@
 # 创建用户角色
 module "alicloud_ram_role" {
-  #source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/role?ref=1.x"
-  source             = "/home/suzhetao/github/terraform/module/terraform-module-alicloud/ram/role"
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/role?ref=1.x"
   alicloud_resources = var.alicloud_resources
 }
 
 # 创建用户
 module "alicloud_ram_user" {
-  source = "/home/suzhetao/github/terraform/module/terraform-module-alicloud/ram/user"
-  #source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/user?ref=1.x"
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/user?ref=1.x"
   alicloud_resources = var.alicloud_resources
 }
 output "alicloud_ram_user_password" {
@@ -18,8 +16,7 @@ output "alicloud_ram_user_password" {
 
 # 创建用户组。
 module "alicloud_ram_group" {
-  source = "/home/suzhetao/github/terraform/module/terraform-module-alicloud/ram/group"
-  # source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/group?ref=1.x"
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/group?ref=1.x"
   alicloud_resources = var.alicloud_resources
   depends_on = [
     module.alicloud_ram_role,
