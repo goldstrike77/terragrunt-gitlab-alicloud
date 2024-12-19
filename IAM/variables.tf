@@ -106,7 +106,7 @@ variable "alicloud_resources" {
       ],
       ram_group = [
         {
-          name   = "Cloud",
+          name       = "Cloud",
           user_names = ["jackiechen"]
           policy = [
             { type = "Custom", name = "policy-BillingAdmin" },
@@ -115,7 +115,7 @@ variable "alicloud_resources" {
           ]
         },
         {
-          name   = "Network",
+          name       = "Network",
           user_names = ["jackiechen", "tomzhu"]
           policy = [
             { type = "Custom", name = "policy-NetworkAdmin" },
@@ -133,6 +133,14 @@ variable "alicloud_resources" {
         }
       ],
       ram_role = [
+        {
+          name           = "AADrole",
+          trusted_entity = "idp",
+          idp            = "AAD",
+          policies = [
+            "AliyunLogFullAccess"
+          ]
+        },
         {
           name = "BillingAdmin",
           policies = [
@@ -214,6 +222,12 @@ variable "alicloud_resources" {
             "AliyunMQFullAccess",
             "AliyunElasticsearchFullAccess"
           ]
+        }
+      ]
+      saml_provider = [
+        {
+          name              = "AAD"
+          metadata_document = "./meta_aad.xml"
         }
       ]
     }

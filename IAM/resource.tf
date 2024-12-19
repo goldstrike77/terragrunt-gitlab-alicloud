@@ -1,10 +1,16 @@
-# 创建用户角色
+# 身份提供商
+#module "alicloud_ram_saml_provider" {
+#  #source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/saml-provider?ref=1.x"
+#  alicloud_resources = var.alicloud_resources
+#}
+
+# 用户角色
 module "alicloud_ram_role" {
   source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/role?ref=1.x"
   alicloud_resources = var.alicloud_resources
 }
 
-# 创建用户
+# 用户
 module "alicloud_ram_user" {
   source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/user?ref=1.x"
   alicloud_resources = var.alicloud_resources
@@ -14,7 +20,7 @@ output "alicloud_ram_user_password" {
   sensitive = true
 }
 
-# 创建用户组。
+# 用户组
 module "alicloud_ram_group" {
   source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/group?ref=1.x"
   alicloud_resources = var.alicloud_resources
