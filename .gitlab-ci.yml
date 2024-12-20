@@ -58,7 +58,7 @@ fmt:
   script:
     - !reference [.source, script]
     - terragrunt hclfmt -check -diff
-    - terragrunt run-all fmt -check -diff -recursive
+    - terragrunt run-all hclfmt -check -diff -recursive
 
 validate:
   extends: .terraform:validate
