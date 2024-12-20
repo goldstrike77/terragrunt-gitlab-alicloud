@@ -27,13 +27,13 @@ variable "alicloud_resources" {
               route_entry = [
                 {
                   destination_cidrblock = "10.40.0.0/16"
-                  #nexthop_type          = "VpcPeer"
-                  #nexthop               = "pcc-vpc-p-network-transit-cn-shanghai-001-peer-vpc-p-network-devops-cn-shanghai-001"
+                  nexthop_type          = "VpcPeer"
+                  nexthop               = "pcc-vpc-p-network-transit-cn-shanghai-001-peer-vpc-p-network-devops-cn-shanghai-001"
                 },
                 {
                   destination_cidrblock = "10.43.0.0/16"
-                  #nexthop_type          = "VpcPeer"
-                  #nexthop               = "pcc-vpc-p-network-transit-cn-shanghai-001-peer-vpc-p-network-toolchain-cn-shanghai-001"
+                  nexthop_type          = "VpcPeer"
+                  nexthop               = "pcc-vpc-p-network-transit-cn-shanghai-001-peer-vpc-p-network-toolchain-cn-shanghai-001"
                 }
               ]
             }
@@ -42,12 +42,12 @@ variable "alicloud_resources" {
             {
               accepting_vpc       = "vpc-p-network-devops-cn-shanghai-001"
               accepting_region_id = "cn-shanghai"
-              accepting_ali_uid   = "5993134423372267"
+              accepting_ali_uid   = "1735232106839245"
             },
             {
               accepting_vpc       = "vpc-p-network-toolchain-cn-shanghai-001"
               accepting_region_id = "cn-shanghai"
-              accepting_ali_uid   = "5993134423372267"
+              accepting_ali_uid   = "1735232106839245"
             }
           ]
           vswitch = [
@@ -90,8 +90,8 @@ variable "alicloud_resources" {
               route_entry = [
                 {
                   destination_cidrblock = "0.0.0.0/0"
-                  #nexthop_type          = "VpcPeer"
-                  #nexthop               = "pcc-vpc-p-network-transit-cn-shanghai-001-peer-vpc-p-network-devops-cn-shanghai-001"
+                  nexthop_type          = "VpcPeer"
+                  nexthop               = "pcc-vpc-p-network-transit-cn-shanghai-001-peer-vpc-p-network-devops-cn-shanghai-001"
                 }
               ]
             }
@@ -149,8 +149,8 @@ variable "alicloud_resources" {
               route_entry = [
                 {
                   destination_cidrblock = "0.0.0.0/0"
-                  #nexthop_type          = "VpcPeer"
-                  #nexthop               = "pcc-vpc-p-network-transit-cn-shanghai-001-peer-vpc-p-network-toolchain-cn-shanghai-001"
+                  nexthop_type          = "VpcPeer"
+                  nexthop               = "pcc-vpc-p-network-transit-cn-shanghai-001-peer-vpc-p-network-toolchain-cn-shanghai-001"
                 }
               ]
             }

@@ -21,12 +21,13 @@ module "alicloud_vpc_ipv4_cidr_block" {
 }
 
 # 专有网络对等连接
-#module "alicloud_vpc_peer_connection" {
-#  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//vpc/peer-connection?ref=1.x"
-#  tags               = var.tags
-#  alicloud_resources = var.alicloud_resources
-#  depends_on         = [module.alicloud_vpc]
-#}
+module "alicloud_vpc_peer_connection" {
+  #source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//vpc/peer-connection?ref=1.x"
+  source             = "/home/suzhetao/github/terraform/module/terraform-module-alicloud/vpc/peer-connection"
+  tags               = var.tags
+  alicloud_resources = var.alicloud_resources
+  depends_on         = [module.alicloud_vpc]
+}
 
 # 交换机
 module "alicloud_vswitch" {
@@ -41,7 +42,7 @@ module "alicloud_route_table" {
   source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//route/table?ref=1.x"
   tags               = var.tags
   alicloud_resources = var.alicloud_resources
-  depends_on         = [module.alicloud_vswitch]
+  depends_on         = [module.alicloud_vswitch, module.alicloud_vpc_peer_connection]
 }
 
 # 安全组
