@@ -20,9 +20,9 @@ module "alicloud_vpc_ipv4_cidr_block" {
   depends_on         = [module.alicloud_vpc]
 }
 
-# 专有网络对等
+# 专有网络对等连接
 #module "alicloud_vpc_peer_connection" {
-#  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//peer-connection?ref=1.x"
+#  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//vpc/peer-connection?ref=1.x"
 #  tags               = var.tags
 #  alicloud_resources = var.alicloud_resources
 #  depends_on         = [module.alicloud_vpc]
@@ -36,17 +36,18 @@ module "alicloud_vswitch" {
   depends_on         = [module.alicloud_vpc_ipv4_cidr_block]
 }
 
-#module "alicloud_route_table" {
-#  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//route-table?ref=1.x"
-#  tags               = var.tags
-#  alicloud_resources = var.alicloud_resources
-#  depends_on         = [module.alicloud_vswitch]
-#}
-#
-#module "alicloud_security_group" {
-#  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//security-group?ref=1.x"
-#  tags               = var.tags
-#  alicloud_resources = var.alicloud_resources
-#  depends_on         = [module.alicloud_vpc]
-#}
-#
+# 路有表
+module "alicloud_route_table" {
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//route/table?ref=1.x"
+  tags               = var.tags
+  alicloud_resources = var.alicloud_resources
+  depends_on         = [module.alicloud_vswitch]
+}
+
+# 安全组
+module "alicloud_security_group" {
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//security/group?ref=1.x"
+  tags               = var.tags
+  alicloud_resources = var.alicloud_resources
+  depends_on         = [module.alicloud_vpc]
+}
