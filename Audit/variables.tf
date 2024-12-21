@@ -16,14 +16,30 @@ variable "alicloud_resources" {
       resource_manager_resource_group = {
         name = "rg-p-shared-audit-001"
       }
-      oss_project = [
+      actiontrail_trail = [
         {
-          name = "p-shared-logs"
+          trail_name            = "action-trail"
+          event_rw              = "All"
+          sls_project           = "p-shared-actiontrail-1013fgoi"
+          oss_bucket_name       = "p-shared-actiontrail-001-ywhmyp5y"
+          is_organization_trail = true
+        }
+      ]
+      log_project = [
+        {
+          name = "p-shared-actiontrail-1013fgoi"
         }
       ]
       oss_bucket = [
         {
-          bucket = "p-shared-logs-001"
+          bucket = "p-shared-actiontrail-001-ywhmyp5y"
+          force_destroy = true
+          lifecycle_rule = {
+            enabled = true
+            expiration = {
+              days = 180
+            }
+          }
         }
       ]
     }
