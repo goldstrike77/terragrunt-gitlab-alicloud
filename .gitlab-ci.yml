@@ -84,7 +84,8 @@ deploy:
   script:
     - !reference [.source, script]
     - terragrunt run-all apply --terragrunt-non-interactive -input=false plan.cache
-    - terragrunt run-all output -json alicloud_ram_user_password | jq > alicloud_ram_user_password.json
+#    - terragrunt run-all output -json alicloud_ram_user_password | jq > alicloud_ram_user_password.json
+    - terraform -chdir=IAM output -json alicloud_ram_user_password | jq > alicloud_ram_user_password.json
   artifacts:
     paths:
       - alicloud_ram_user_password.json
