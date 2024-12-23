@@ -37,11 +37,11 @@ module "alicloud_ram_group" {
 #}
 
 # 管控策略
-module "alicloud_resource_manager_control_policy" {
-  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//resource-manager/control-policy?ref=1.x"
-  alicloud_resources = var.alicloud_resources
-  depends_on         = [module.alicloud_resource_manager_resource_directory]
-}
+#module "alicloud_resource_manager_control_policy" {
+#  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//resource-manager/control-policy?ref=1.x"
+#  alicloud_resources = var.alicloud_resources
+#  depends_on         = [module.alicloud_resource_manager_resource_directory]
+#}
 
 # 资源夹
 #module "alicloud_resource_manager_folder" {
