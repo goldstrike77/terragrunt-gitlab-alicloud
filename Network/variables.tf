@@ -73,6 +73,27 @@ variable "alicloud_resources" {
             }
           ]
         }
+      ],
+      nat_gateway = [
+        {
+          vpc_name         = "vpc-p-network-transit-cn-shanghai-001"
+          vswitch_name     = "vsw-p-network-transit-ngw-cn-shanghai-001"
+          nat_gateway_name = "ngw-p-shared-transit-cn-shanghai-001"
+        }
+      ]
+      eip = [
+        {
+          address_name  = "eip-ngw-p-shared-transit-cn-shanghai-001"
+          instance_type = "NAT"
+          instance_name = "ngw-p-shared-transit-cn-shanghai-001"
+        }
+      ],
+      snat_entry = [
+        {
+          nat_gateway_name = "ngw-p-shared-transit-cn-shanghai-001"
+          eip_address_name = "eip-ngw-p-shared-transit-cn-shanghai-001"
+          source_cidr      = "10.0.0.0/8"
+        }
       ]
     },
     {

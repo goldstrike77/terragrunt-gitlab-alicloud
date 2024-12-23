@@ -46,8 +46,35 @@ module "alicloud_route_table" {
 
 # 安全组
 module "alicloud_security_group" {
-  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//security/group?ref=1.x"
+  #source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//security/group?ref=1.x"
+  source             = "/home/suzhetao/github/terraform/module/terraform-module-alicloud/security/group"
   tags               = var.tags
   alicloud_resources = var.alicloud_resources
   depends_on         = [module.alicloud_vpc]
+}
+
+# NAT网关
+module "alicloud_nat_gateway" {
+  #source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//nat-gateway?ref=1.x"
+  source             = "/home/suzhetao/github/terraform/module/terraform-module-alicloud/nat-gateway"
+  tags               = var.tags
+  alicloud_resources = var.alicloud_resources
+  depends_on         = [module.alicloud_vswitch]
+}
+
+# 弹性公网IP
+module "alicloud_eip_address" {
+  #source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//eip-address?ref=1.x"
+  source             = "/home/suzhetao/github/terraform/module/terraform-module-alicloud/eip-address"
+  tags               = var.tags
+  alicloud_resources = var.alicloud_resources
+  depends_on         = [module.alicloud_nat_gateway]
+}
+
+# SNAT条目
+module "alicloud_snat_entry" {
+  #source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//snat-entry?ref=1.x"
+  source             = "/home/suzhetao/github/terraform/module/terraform-module-alicloud/snat-entry"
+  alicloud_resources = var.alicloud_resources
+  depends_on         = [module.alicloud_nat_gateway, module.alicloud_eip_address]
 }

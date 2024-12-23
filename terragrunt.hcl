@@ -6,7 +6,7 @@ terraform {
   required_providers {
     alicloud = {
       source  = "hashicorp/alicloud"
-      version = "1.237.0"
+      version = "1.239.0"
     }
     time = {
       source  = "hashicorp/time"
