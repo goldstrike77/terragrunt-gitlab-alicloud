@@ -1,18 +1,18 @@
 # 身份提供商
 #module "alicloud_ram_saml_provider" {
-#  #source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/saml-provider?ref=1.x"
+#  #source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/ram-saml-provider?ref=1.x"
 #  alicloud_resources = var.alicloud_resources
 #}
 
 # 用户角色
 module "alicloud_ram_role" {
-  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/role?ref=1.x"
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/ram-role?ref=1.x"
   alicloud_resources = var.alicloud_resources
 }
 
 # 用户
 module "alicloud_ram_user" {
-  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/user?ref=1.x"
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/ram-user?ref=1.x"
   alicloud_resources = var.alicloud_resources
 }
 output "alicloud_ram_user_password" {
@@ -22,7 +22,7 @@ output "alicloud_ram_user_password" {
 
 # 用户组
 module "alicloud_ram_group" {
-  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/group?ref=1.x"
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//ram/ram-group?ref=1.x"
   alicloud_resources = var.alicloud_resources
   depends_on = [
     module.alicloud_ram_role,
