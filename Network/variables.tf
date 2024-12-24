@@ -16,6 +16,12 @@ variable "alicloud_resources" {
       resource_manager_resource_group = {
         name = "rg-p-network-transit-001"
       }
+      security_group = [
+        {
+          vpc_name            = "vpc-p-network-transit-cn-shanghai-001"
+          security_group_name = "sg-p-transit-bastion-cn-shanghai-001"
+        }
+      ],
       vpc = [
         {
           vpc_name             = "vpc-p-network-transit-cn-shanghai-001"
@@ -60,11 +66,16 @@ variable "alicloud_resources" {
               vswitch_name = "vsw-p-network-transit-bastion-cn-shanghai-001"
               cidr_block   = "10.30.0.64/26"
               zone_id      = "cn-shanghai-b"
-            }
-          ]
-          security_group = [
+            },
             {
-              name = "sg-p-transit-bastion-cn-shanghai-001"
+              vswitch_name = "vsw-p-network-transit-vpn-cn-shanghai-001"
+              cidr_block   = "10.30.0.128/26"
+              zone_id      = "cn-shanghai-b"
+            },
+                        {
+              vswitch_name = "vsw-p-network-transit-vpn-cn-shanghai-002"
+              cidr_block   = "10.30.0.192/26"
+              zone_id      = "cn-shanghai-a"
             }
           ]
         }
@@ -75,7 +86,7 @@ variable "alicloud_resources" {
           vswitch_name     = "vsw-p-network-transit-ngw-cn-shanghai-001"
           nat_gateway_name = "ngw-p-shared-transit-cn-shanghai-001"
         }
-      ]
+      ],
       eip = [
         {
           address_name  = "eip-ngw-p-shared-transit-cn-shanghai-001"
@@ -89,12 +100,75 @@ variable "alicloud_resources" {
           eip_address_name = "eip-ngw-p-shared-transit-cn-shanghai-001"
           source_cidr      = "10.0.0.0/8"
         }
+      ],
+      vpn_gateway = [
+        {
+          vpc_name         = "vpc-p-network-transit-cn-shanghai-001"
+          vswitch_name     = "vsw-p-network-transit-vpn-cn-shanghai-001"
+          disaster_recovery_vswitch_name = "vsw-p-network-transit-vpn-cn-shanghai-002"
+          vpn_gateway_name = "vgw-p-shared-transit-cn-shanghai-001"
+          enable_ipsec     = false
+          enable_ssl       = true
+          ssl_vpn_server = [
+            {
+             name = "ssl-vgw-p-shared-transit-cn-shanghai-001"
+             client_ip_pool = "192.168.2.0/24"
+             ssl_vpn_client_cert = [
+              {
+                name = "cert-ssl-vgw-p-shared-transit-cn-shanghai-001"
+              }
+             ]
+            }
+          ]
+        }
       ]
     },
     {
       resource_manager_resource_group = {
         name = "rg-p-network-devops-001"
       }
+      security_group = [
+        {
+          vpc_name            = "vpc-p-network-devops-cn-shanghai-001"
+          security_group_name = "sg-p-devops-ecs-cn-shanghai-001"
+          rule = [
+            { type = "ingress", ip_protocol = "tcp", port_range = "22/22", nic_type = "intranet", policy = "accept", priority = 10, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "tcp", port_range = "80/80", nic_type = "intranet", policy = "accept", priority = 20, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "tcp", port_range = "443/443", nic_type = "intranet", policy = "accept", priority = 30, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "tcp", port_range = "3389/3389", nic_type = "intranet", policy = "accept", priority = 40, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "icmp", priority = 50, cidr_ip = "0.0.0.0/0" }
+          ]
+        },
+        {
+          vpc_name            = "vpc-p-network-devops-cn-shanghai-001"
+          security_group_name = "sg-p-devops-ack-cn-shanghai-001"
+          rule = [
+            { type = "ingress", ip_protocol = "tcp", port_range = "80/80", nic_type = "intranet", policy = "accept", priority = 20, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "tcp", port_range = "443/443", nic_type = "intranet", policy = "accept", priority = 30, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "icmp", priority = 50, cidr_ip = "0.0.0.0/0" }
+          ]
+        },
+        {
+          vpc_name            = "vpc-p-network-toolchain-cn-shanghai-001"
+          security_group_name = "sg-p-toolchain-ecs-cn-shanghai-001"
+          rule = [
+            { type = "ingress", ip_protocol = "tcp", port_range = "22/22", nic_type = "intranet", policy = "accept", priority = 10, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "tcp", port_range = "80/80", nic_type = "intranet", policy = "accept", priority = 20, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "tcp", port_range = "443/443", nic_type = "intranet", policy = "accept", priority = 30, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "tcp", port_range = "3389/3389", nic_type = "intranet", policy = "accept", priority = 40, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "icmp", priority = 50, cidr_ip = "0.0.0.0/0" }
+          ]
+        },
+        {
+          vpc_name            = "vpc-p-network-toolchain-cn-shanghai-001"
+          security_group_name = "sg-p-toolchain-kvstore-cn-shanghai-001"
+          rule = [
+            { type = "ingress", ip_protocol = "tcp", port_range = "6379/6379", nic_type = "intranet", policy = "accept", priority = 10, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "tcp", port_range = "11211/11211", nic_type = "intranet", policy = "accept", priority = 20, cidr_ip = "0.0.0.0/0" },
+            { type = "ingress", ip_protocol = "icmp", priority = 50, cidr_ip = "0.0.0.0/0" }
+          ]
+        }
+      ],
       vpc = [
         {
           vpc_name             = "vpc-p-network-devops-cn-shanghai-001"
@@ -134,26 +208,6 @@ variable "alicloud_resources" {
               zone_id      = "cn-shanghai-f"
             }
           ]
-          security_group = [
-            {
-              name = "sg-p-devops-ecs-cn-shanghai-001"
-              rule = [
-                { type = "ingress", ip_protocol = "tcp", port_range = "22/22", nic_type = "intranet", policy = "accept", priority = 10, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "tcp", port_range = "80/80", nic_type = "intranet", policy = "accept", priority = 20, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "tcp", port_range = "443/443", nic_type = "intranet", policy = "accept", priority = 30, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "tcp", port_range = "3389/3389", nic_type = "intranet", policy = "accept", priority = 40, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "icmp", priority = 50, cidr_ip = "0.0.0.0/0" }
-              ]
-            },
-            {
-              name = "sg-p-devops-ack-cn-shanghai-001"
-              rule = [
-                { type = "ingress", ip_protocol = "tcp", port_range = "80/80", nic_type = "intranet", policy = "accept", priority = 20, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "tcp", port_range = "443/443", nic_type = "intranet", policy = "accept", priority = 30, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "icmp", priority = 50, cidr_ip = "0.0.0.0/0" }
-              ]
-            }
-          ]
         },
         {
           vpc_name             = "vpc-p-network-toolchain-cn-shanghai-001"
@@ -176,26 +230,6 @@ variable "alicloud_resources" {
               vswitch_name = "vsw-p-network-toolchain-ecs-cn-shanghai-001"
               cidr_block   = "10.43.0.0/22"
               zone_id      = "cn-shanghai-f"
-            }
-          ]
-          security_group = [
-            {
-              name = "sg-p-toolchain-ecs-cn-shanghai-001"
-              rule = [
-                { type = "ingress", ip_protocol = "tcp", port_range = "22/22", nic_type = "intranet", policy = "accept", priority = 10, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "tcp", port_range = "80/80", nic_type = "intranet", policy = "accept", priority = 20, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "tcp", port_range = "443/443", nic_type = "intranet", policy = "accept", priority = 30, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "tcp", port_range = "3389/3389", nic_type = "intranet", policy = "accept", priority = 40, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "icmp", priority = 50, cidr_ip = "0.0.0.0/0" }
-              ]
-            },
-            {
-              name = "sg-p-toolchain-kvstore-cn-shanghai-001"
-              rule = [
-                { type = "ingress", ip_protocol = "tcp", port_range = "6379/6379", nic_type = "intranet", policy = "accept", priority = 10, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "tcp", port_range = "11211/11211", nic_type = "intranet", policy = "accept", priority = 20, cidr_ip = "0.0.0.0/0" },
-                { type = "ingress", ip_protocol = "icmp", priority = 50, cidr_ip = "0.0.0.0/0" }
-              ]
             }
           ]
         }
