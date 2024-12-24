@@ -55,11 +55,6 @@ variable "alicloud_resources" {
               vswitch_name = "vsw-p-network-transit-ngw-cn-shanghai-001"
               cidr_block   = "10.30.0.0/26"
               zone_id      = "cn-shanghai-b"
-              nat_gateway = [
-                {
-                  nat_gateway_name = "ngw-p-shared-transit-cn-shanghai-001"
-                }
-              ]
             },
             {
               vswitch_name = "vsw-p-network-transit-bastion-cn-shanghai-001"

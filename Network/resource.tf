@@ -46,8 +46,7 @@ module "alicloud_route_table" {
 
 # 安全组
 module "alicloud_security_group" {
-  #source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//security/group?ref=1.x"
-  source             = "/home/suzhetao/github/terraform/module/terraform-module-alicloud/security/group"
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//security/group?ref=1.x"
   tags               = var.tags
   alicloud_resources = var.alicloud_resources
   depends_on         = [module.alicloud_vpc]
