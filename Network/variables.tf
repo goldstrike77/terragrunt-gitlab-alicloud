@@ -72,10 +72,20 @@ variable "alicloud_resources" {
               cidr_block   = "10.30.0.128/26"
               zone_id      = "cn-shanghai-b"
             },
-                        {
+            {
               vswitch_name = "vsw-p-network-transit-vpn-cn-shanghai-002"
               cidr_block   = "10.30.0.192/26"
               zone_id      = "cn-shanghai-a"
+            },
+            {
+              vswitch_name = "vsw-p-network-transit-alb-cn-shanghai-001"
+              cidr_block   = "10.30.1.0/26"
+              zone_id      = "cn-shanghai-m"
+            },
+            {
+              vswitch_name = "vsw-p-network-transit-alb-cn-shanghai-002"
+              cidr_block   = "10.30.1.64/26"
+              zone_id      = "cn-shanghai-n"
             }
           ]
         }
@@ -103,23 +113,30 @@ variable "alicloud_resources" {
       ],
       vpn_gateway = [
         {
-          vpc_name         = "vpc-p-network-transit-cn-shanghai-001"
-          vswitch_name     = "vsw-p-network-transit-vpn-cn-shanghai-001"
+          vpc_name                       = "vpc-p-network-transit-cn-shanghai-001"
+          vswitch_name                   = "vsw-p-network-transit-vpn-cn-shanghai-001"
           disaster_recovery_vswitch_name = "vsw-p-network-transit-vpn-cn-shanghai-002"
-          vpn_gateway_name = "vgw-p-shared-transit-cn-shanghai-001"
-          enable_ipsec     = false
-          enable_ssl       = true
+          vpn_gateway_name               = "vgw-p-shared-transit-cn-shanghai-001"
+          enable_ipsec                   = false
+          enable_ssl                     = true
           ssl_vpn_server = [
             {
-             name = "ssl-vgw-p-shared-transit-cn-shanghai-001"
-             client_ip_pool = "192.168.2.0/24"
-             ssl_vpn_client_cert = [
-              {
-                name = "cert-ssl-vgw-p-shared-transit-cn-shanghai-001"
-              }
-             ]
+              name           = "ssl-vgw-p-shared-transit-cn-shanghai-001"
+              client_ip_pool = "192.168.2.0/24"
+              ssl_vpn_client_cert = [
+                {
+                  name = "cert-ssl-vgw-p-shared-transit-cn-shanghai-001"
+                }
+              ]
             }
           ]
+        }
+      ],
+      alb_load_balancer = [
+        {
+          vpc_name           = "vpc-p-network-transit-cn-shanghai-001"
+          vswitch_name       = ["vsw-p-network-transit-alb-cn-shanghai-001", "vsw-p-network-transit-alb-cn-shanghai-002"]
+          load_balancer_name = "alb-p-shared-transit-cn-shanghai-001"
         }
       ]
     },

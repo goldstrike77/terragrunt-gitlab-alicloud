@@ -96,3 +96,11 @@ module "alicloud_security_group" {
 #  alicloud_resources = var.alicloud_resources
 #  depends_on         = [module.alicloud_ssl_vpn_server]
 #}
+
+# 应用型负载均衡
+module "alicloud_alb_load_balancer" {
+  source             = "git::https://gitea.home.local/suzhetao/terraform-module-alicloud.git//alb/alb_load_balancer?ref=1.x"
+  tags               = var.tags
+  alicloud_resources = var.alicloud_resources
+  depends_on         = [module.alicloud_vswitch]
+}
