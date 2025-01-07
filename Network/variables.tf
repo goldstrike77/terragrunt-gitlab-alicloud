@@ -80,12 +80,12 @@ variable "alicloud_resources" {
             {
               vswitch_name = "vsw-p-network-transit-alb-cn-shanghai-001"
               cidr_block   = "10.30.1.0/26"
-              zone_id      = "cn-shanghai-m"
+              zone_id      = "cn-shanghai-c"
             },
             {
               vswitch_name = "vsw-p-network-transit-alb-cn-shanghai-002"
               cidr_block   = "10.30.1.64/26"
-              zone_id      = "cn-shanghai-n"
+              zone_id      = "cn-shanghai-d"
             }
           ]
         }

@@ -21,7 +21,7 @@ variable "alicloud_resources" {
           trail_name            = "action-trail"
           event_rw              = "All"
           sls_project           = "p-shared-actiontrail-1013fgoi"
-          oss_bucket_name       = "p-shared-actiontrail-001-ywhmyp5y"
+          oss_bucket_name       = "p-shared-actiontrail-001-so6z0426"
           is_organization_trail = true
         }
       ]
@@ -32,7 +32,7 @@ variable "alicloud_resources" {
       ]
       oss_bucket = [
         {
-          bucket = "p-shared-actiontrail-001-ywhmyp5y"
+          bucket = "p-shared-actiontrail-001-so6z0426"
           force_destroy = true
           lifecycle_rule = {
             enabled = true
