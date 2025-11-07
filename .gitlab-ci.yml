@@ -51,7 +51,7 @@ init:
     policy: pull-push
   script:
     - !reference [.source, script]
-    - terragrunt init --all -input=false -reconfigure --non-interactive -lock=false
+    - terragrunt init --all -input=false -reconfigure --non-interactive
 
 fmt:
   extends: .terraform:fmt
@@ -69,7 +69,7 @@ build:
   extends: .terraform:build
   script:
     - !reference [.source, script]
-    - terragrunt plan --all --non-interactive -out=plan.cache -terragrunt-source-update
+    - terragrunt plan --all --non-interactive -out=plan.cache
     - terragrunt run-all show -json plan.cache | jq -r "${JQ_PLAN}" | jq -s 'map(to_entries) | flatten | group_by(.key) | map({(.[0].key):map(.value) | add}) | add' > "${TF_ROOT}/plan.json"
   artifacts:
     paths:
