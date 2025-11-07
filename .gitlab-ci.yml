@@ -18,7 +18,7 @@ variables:
 
 default:
   image:
-    name: "registry.cn-hangzhou.aliyuncs.com/goldenimage/terragrunt:1.10.2-v0.69.13"
+    name: "registry.cn-hangzhou.aliyuncs.com/goldenimage/terragrunt:1.13.5-v0.93.3"
   
   cache:
     key: $CI_COMMIT_REF_SLUG
@@ -51,26 +51,25 @@ init:
     policy: pull-push
   script:
     - !reference [.source, script]
-    - terragrunt run-all init -input=false -reconfigure
+    - terragrunt init --all -input=false -reconfigure --non-interactive -lock=false
 
 fmt:
   extends: .terraform:fmt
   script:
     - !reference [.source, script]
-    - terragrunt hclfmt -check -diff
-    - terragrunt run-all hclfmt -check -diff -recursive
+    - terragrunt hcl format --check --all --diff
 
 validate:
   extends: .terraform:validate
   script:
     - !reference [.source, script]
-    - terragrunt run-all validate
+    - terragrunt validate --all
 
 build:
   extends: .terraform:build
   script:
     - !reference [.source, script]
-    - terragrunt run-all plan -input=false -out=plan.cache
+    - terragrunt plan --all --non-interactive -out=plan.cache -terragrunt-source-update
     - terragrunt run-all show -json plan.cache | jq -r "${JQ_PLAN}" | jq -s 'map(to_entries) | flatten | group_by(.key) | map({(.[0].key):map(.value) | add}) | add' > "${TF_ROOT}/plan.json"
   artifacts:
     paths:

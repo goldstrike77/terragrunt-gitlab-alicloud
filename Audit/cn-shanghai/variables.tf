@@ -32,7 +32,7 @@ variable "alicloud_resources" {
       ]
       oss_bucket = [
         {
-          bucket = "p-shared-actiontrail-001-so6z0426"
+          bucket        = "p-shared-actiontrail-001-so6z0426"
           force_destroy = true
           lifecycle_rule = {
             enabled = true
