@@ -69,8 +69,8 @@ build:
   extends: .terraform:build
   script:
     - !reference [.source, script]
-    - terragrunt plan --all --non-interactive -out=plan.cache
-    - terragrunt run-all show -json plan.cache | jq -r "${JQ_PLAN}" | jq -s 'map(to_entries) | flatten | group_by(.key) | map({(.[0].key):map(.value) | add}) | add' > "${TF_ROOT}/plan.json"
+    - terragrunt plan --all -reconfigure --non-interactive -out=plan.cache
+    - terragrunt run -- output -json plan.cache | jq -r "${JQ_PLAN}" | jq -s 'map(to_entries) | flatten | group_by(.key) | map({(.[0].key):map(.value) | add}) | add' > "${TF_ROOT}/plan.json"
   artifacts:
     paths:
       - ${TF_ROOT}/**/plan.cache
