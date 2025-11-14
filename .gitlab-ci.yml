@@ -51,11 +51,7 @@ init:
     policy: pull-push
   script:
     - !reference [.source, script]
-<<<<<<< HEAD
-    - terragrunt init --all -input=false -reconfigure --non-interactive -lock=false
-=======
     - terragrunt init --all -input=false -reconfigure --non-interactive
->>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368
 
 fmt:
   extends: .terraform:fmt
@@ -67,22 +63,14 @@ validate:
   extends: .terraform:validate
   script:
     - !reference [.source, script]
-<<<<<<< HEAD
-    - terragrunt run --all validate
-=======
     - terragrunt validate --all
->>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368
 
 build:
   extends: .terraform:build
   script:
     - !reference [.source, script]
     - terragrunt plan --all --non-interactive -out=plan.cache
-<<<<<<< HEAD
-    - terragrunt run-all show -json plan.cache | jq -r "${JQ_PLAN}" | jq -s 'map(to_entries) | flatten | group_by(.key) | map({(.[0].key):map(.value) | add}) | add' > "${TF_ROOT}/plan.json"
-=======
     - terragrunt run -- output -json plan.cache | jq -r "${JQ_PLAN}" | jq -s 'map(to_entries) | flatten | group_by(.key) | map({(.[0].key):map(.value) | add}) | add' > "${TF_ROOT}/plan.json"
->>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368
   artifacts:
     paths:
       - ${TF_ROOT}/**/plan.cache
