@@ -106,7 +106,7 @@ variable "alicloud_resources" {
       ],
       ram_group = [
         {
-          name       = "Cloud",
+          group_name       = "Cloud",
           user_names = ["jackiechen"]
           policy = [
             { type = "Custom", name = "policy-BillingAdmin" },
@@ -115,7 +115,7 @@ variable "alicloud_resources" {
           ]
         },
         {
-          name       = "Network",
+          group_name       = "Network",
           user_names = ["jackiechen", "tomzhu"]
           policy = [
             { type = "Custom", name = "policy-NetworkAdmin" },
@@ -134,14 +134,14 @@ variable "alicloud_resources" {
       ],
       ram_role = [
         {
-          name     = "AADrole",
+          role_name     = "AADrole",
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Condition" : { "StringEquals" : { "saml:recipient" : "https://signin.aliyun.com/saml-role/sso" } }, "Effect" : "Allow", "Principal" : { "Federated" : ["acs:ram::1735232106839245:saml-provider/AAD"] } }], "Version" : "1" }
           policies = [
             "AliyunLogFullAccess"
           ]
         },
         {
-          name     = "BillingAdmin",
+          role_name     = "BillingAdmin",
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
           policies = [
             "AliyunBSSFullAccess",
@@ -149,14 +149,14 @@ variable "alicloud_resources" {
           ]
         },
         {
-          name     = "CloudAdmin"
+          role_name     = "CloudAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
           policies = [
             "AdministratorAccess"
           ]
         },
         {
-          name     = "NetworkAdmin"
+          role_name     = "NetworkAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
           policies = [
             "AliyunVPCFullAccess",
@@ -174,7 +174,7 @@ variable "alicloud_resources" {
           ]
         },
         {
-          name     = "DBAdmin"
+          role_name     = "DBAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
           policies = [
             "AliyunRDSFullAccess",
@@ -199,7 +199,7 @@ variable "alicloud_resources" {
           ]
         },
         {
-          name     = "SLBAdmin"
+          role_name     = "SLBAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
           policies = [
             "AliyunSLBFullAccess",
@@ -208,21 +208,21 @@ variable "alicloud_resources" {
           ]
         },
         {
-          name     = "CDNAdmin"
+          role_name     = "CDNAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
           policies = [
             "AliyunCDNFullAccess"
           ]
         },
         {
-          name     = "MonitorAdmin"
+          role_name     = "MonitorAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
           policies = [
             "AliyunCloudMonitorFullAccess"
           ]
         },
         {
-          name     = "MiddlewareAdmin"
+          role_name     = "MiddlewareAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
           policies = [
             "AliyunKvstoreFullAccess",
