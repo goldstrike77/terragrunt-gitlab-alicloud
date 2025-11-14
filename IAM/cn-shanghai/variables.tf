@@ -106,7 +106,11 @@ variable "alicloud_resources" {
       ],
       ram_group = [
         {
+<<<<<<< HEAD:IAM/cn-shanghai/variables.tf
           group_name       = "Cloud",
+=======
+          group_name = "Cloud",
+>>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368:IAM/variables.tf
           user_names = ["jackiechen"]
           policy = [
             { type = "Custom", name = "policy-BillingAdmin" },
@@ -115,7 +119,11 @@ variable "alicloud_resources" {
           ]
         },
         {
+<<<<<<< HEAD:IAM/cn-shanghai/variables.tf
           group_name       = "Network",
+=======
+          group_name = "Network",
+>>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368:IAM/variables.tf
           user_names = ["jackiechen", "tomzhu"]
           policy = [
             { type = "Custom", name = "policy-NetworkAdmin" },
@@ -134,30 +142,50 @@ variable "alicloud_resources" {
       ],
       ram_role = [
         {
+<<<<<<< HEAD:IAM/cn-shanghai/variables.tf
           role_name     = "AADrole",
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Condition" : { "StringEquals" : { "saml:recipient" : "https://signin.aliyun.com/saml-role/sso" } }, "Effect" : "Allow", "Principal" : { "Federated" : ["acs:ram::1735232106839245:saml-provider/AAD"] } }], "Version" : "1" }
+=======
+          role_name                   = "AADrole",
+          assume_role_policy_document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Condition" : { "StringEquals" : { "saml:recipient" : "https://signin.aliyun.com/saml-role/sso" } }, "Effect" : "Allow", "Principal" : { "Federated" : ["acs:ram::1735232106839245:saml-provider/AAD"] } }], "Version" : "1" }
+>>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368:IAM/variables.tf
           policies = [
             "AliyunLogFullAccess"
           ]
         },
         {
+<<<<<<< HEAD:IAM/cn-shanghai/variables.tf
           role_name     = "BillingAdmin",
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+=======
+          role_name                   = "BillingAdmin",
+          assume_role_policy_document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+>>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368:IAM/variables.tf
           policies = [
             "AliyunBSSFullAccess",
             "AliyunFinanceConsoleFullAccess"
           ]
         },
         {
+<<<<<<< HEAD:IAM/cn-shanghai/variables.tf
           role_name     = "CloudAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+=======
+          role_name                   = "CloudAdmin"
+          assume_role_policy_document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+>>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368:IAM/variables.tf
           policies = [
             "AdministratorAccess"
           ]
         },
         {
+<<<<<<< HEAD:IAM/cn-shanghai/variables.tf
           role_name     = "NetworkAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+=======
+          role_name                   = "NetworkAdmin"
+          assume_role_policy_document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+>>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368:IAM/variables.tf
           policies = [
             "AliyunVPCFullAccess",
             "AliyunNATGatewayFullAccess",
@@ -174,8 +202,13 @@ variable "alicloud_resources" {
           ]
         },
         {
+<<<<<<< HEAD:IAM/cn-shanghai/variables.tf
           role_name     = "DBAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+=======
+          role_name                   = "DBAdmin"
+          assume_role_policy_document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+>>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368:IAM/variables.tf
           policies = [
             "AliyunRDSFullAccess",
             "AliyunDRDSFullAccess",
@@ -199,8 +232,13 @@ variable "alicloud_resources" {
           ]
         },
         {
+<<<<<<< HEAD:IAM/cn-shanghai/variables.tf
           role_name     = "SLBAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+=======
+          role_name                   = "SLBAdmin"
+          assume_role_policy_document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+>>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368:IAM/variables.tf
           policies = [
             "AliyunSLBFullAccess",
             "AliyunEIPFullAccess",
@@ -208,22 +246,37 @@ variable "alicloud_resources" {
           ]
         },
         {
+<<<<<<< HEAD:IAM/cn-shanghai/variables.tf
           role_name     = "CDNAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+=======
+          role_name                   = "CDNAdmin"
+          assume_role_policy_document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+>>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368:IAM/variables.tf
           policies = [
             "AliyunCDNFullAccess"
           ]
         },
         {
+<<<<<<< HEAD:IAM/cn-shanghai/variables.tf
           role_name     = "MonitorAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+=======
+          role_name                   = "MonitorAdmin"
+          assume_role_policy_document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+>>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368:IAM/variables.tf
           policies = [
             "AliyunCloudMonitorFullAccess"
           ]
         },
         {
+<<<<<<< HEAD:IAM/cn-shanghai/variables.tf
           role_name     = "MiddlewareAdmin"
           document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+=======
+          role_name                   = "MiddlewareAdmin"
+          assume_role_policy_document = { "Statement" : [{ "Action" : "sts:AssumeRole", "Effect" : "Allow", "Principal" : { "RAM" : ["acs:ram::1735232106839245:root"] } }], "Version" : "1" }
+>>>>>>> 533db491cd35cab535309d662dbe44a4bdec4368:IAM/variables.tf
           policies = [
             "AliyunKvstoreFullAccess",
             "AliyunMQFullAccess",
