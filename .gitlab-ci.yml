@@ -51,7 +51,7 @@ init:
     policy: pull-push
   script:
     - !reference [.source, script]
-    - terragrunt init --all -input=false -reconfigure --non-interactive
+    - terragrunt init --all -input=false -reconfigure --non-interactive -lock=false
 
 fmt:
   extends: .terraform:fmt
