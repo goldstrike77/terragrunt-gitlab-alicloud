@@ -23,7 +23,7 @@ default:
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
-      - ${TF_ROOT}/**/.terraform
+      - ${TF_ROOT}/**/.terragrunt-cache
     policy: pull
 
 .source:
@@ -47,11 +47,10 @@ init:
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
-      - .terraform/
+      - ${TF_ROOT}/**/.terragrunt-cache
     policy: pull-push
   script:
     - !reference [.source, script]
-    - sleep 3600
     - terragrunt init --all -input=false -reconfigure --non-interactive -lock=false
 
 fmt:
@@ -71,6 +70,7 @@ build:
   script:
     - !reference [.source, script]
     - terragrunt plan --all --non-interactive --source-update
+    - sleep 3600
   artifacts:
     paths:
       - ${TF_ROOT}/**/.terragrunt-cache
