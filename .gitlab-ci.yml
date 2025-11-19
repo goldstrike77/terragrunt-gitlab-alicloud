@@ -51,6 +51,7 @@ init:
     policy: pull-push
   script:
     - !reference [.source, script]
+    - sleep 3600
     - terragrunt init --all -input=false -reconfigure --non-interactive -lock=false
 
 fmt:
