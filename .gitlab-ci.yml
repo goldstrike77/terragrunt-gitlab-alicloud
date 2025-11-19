@@ -70,7 +70,6 @@ build:
   script:
     - !reference [.source, script]
     - terragrunt plan --all --non-interactive --source-update
-    - sleep 3600
   artifacts:
     paths:
       - ${TF_ROOT}/**/.terragrunt-cache
@@ -82,11 +81,7 @@ deploy:
   dependencies: [build]
   script:
     - !reference [.source, script]
-    - terragrunt run-all apply --terragrunt-non-interactive -input=false plan.cache
-    - terraform -chdir=IAM output -json alicloud_ram_user_password | jq > alicloud_ram_user_password.json
-  artifacts:
-    paths:
-      - alicloud_ram_user_password.json
+    - terragrunt apply --all --non-interactive
   rules:
     - if: $CI_COMMIT_TITLE == "deploy"
       when: on_success
@@ -98,7 +93,7 @@ destroy:
   dependencies: [build]
   script:
     - !reference [.source, script]
-    - terragrunt run-all destroy --terragrunt-non-interactive -input=false
+    - terragrunt destroy --all --non-interactive -input=false
   rules:
     - if: $CI_COMMIT_TITLE == "destroy"
       when: on_success
