@@ -20,11 +20,11 @@ default:
   image:
     name: "registry.cn-hangzhou.aliyuncs.com/goldenimage/terragrunt:1.13.5-v0.93.3"
   
-  cache:
-    key: $CI_COMMIT_REF_SLUG
-    paths:
-      - ${TF_ROOT}/**/.terragrunt-cache
-    policy: pull
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - ${TF_ROOT}/**/.terragrunt-cache
+  policy: pull
 
 .source:
   script:
